@@ -13,7 +13,7 @@ public class Main {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(frontend), "/authform");
 
-        Server server = new Server(8081);
+        Server server = new Server(8082);
         server.setHandler(context);
 
         server.start();
