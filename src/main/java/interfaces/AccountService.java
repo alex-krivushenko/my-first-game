@@ -16,4 +16,5 @@ public interface AccountService {
     int signInUser(String userName, String password);
     UserProfile getUser(String userName);
     UserProfile getSession(String sessionId);
+    void setSession(String sessionId, String userName);
 }

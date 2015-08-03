@@ -48,4 +48,9 @@ public class AccountServiceDevImpl implements AccountService {
         return sessions.get(sessionId);
     }
 
+    @Override
+    public void setSession(String sessionId, String userName) {
+        sessions.put(sessionId, users.get(userName));
+    }
+
 }

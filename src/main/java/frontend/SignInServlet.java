@@ -3,9 +3,10 @@ package frontend;
 
 import interfaces.AccountService;
 import main.AccountServiceDevImpl;
+import main.UserProfile;
 import templater.PageGenerator;
 
-import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +24,19 @@ public class SignInServlet extends HttpServlet {
         this.accountService = accountService;
     }
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> pageVariables = new HashMap<>();
+        UserProfile userProfile = null;
+        Cookie[] cookies =  request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("sessionId"))
+                userProfile = accountService.getSession(c.getValue());
+        }
+        if(userProfile != null)
+            pageVariables.put("login_status", "User authorised");
+        else pageVariables.put("login_status", "User unauthorised");
 
-        pageVariables.put("login_status", request.getSession().getId());
         try {
             response.getWriter().println(PageGenerator.getPage("signin.html", pageVariables));
         } catch (IOException e) {
@@ -36,6 +46,7 @@ public class SignInServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> pageVariables = new HashMap<>();
 
@@ -48,6 +59,9 @@ public class SignInServlet extends HttpServlet {
                 break;
             case AccountService.USER_AUTH_OK:
                 pageVariables.put("login_status", "User authorised");
+                accountService.setSession(request.getSession().getId(), userName);
+                Cookie cookie = new Cookie("sessionId", request.getSession().getId());
+                response.addCookie(cookie);
                 break;
             case AccountService.USER_NOT_FOUND:
                 pageVariables.put("login_status", "User not found");
