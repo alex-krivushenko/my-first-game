@@ -28,8 +28,7 @@ public class SignInServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> pageVariables = new HashMap<>();
         UserProfile userProfile = null;
-        Cookie[] cookies =  request.getCookies();
-        for (Cookie c : cookies) {
+        for (Cookie c : request.getCookies()) {
             if (c.getName().equals("sessionId"))
                 userProfile = accountService.getSession(c.getValue());
         }
