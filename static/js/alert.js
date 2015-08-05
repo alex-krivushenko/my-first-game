@@ -1,1 +1,1 @@
-alert("Hello user!");
+alert("Your name is "+prompt("Enter your name", "")+".");
