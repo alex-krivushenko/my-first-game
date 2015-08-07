@@ -11,3 +11,4 @@ Technology stack
     CSS
     Javascript
     Frameworks
+      Mocha as a testing framework
