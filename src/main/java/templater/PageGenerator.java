@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by Alexander on 31.07.2015.
  */
 public class PageGenerator {
-    private static final String HTML_DIR = "server_tml";
+    private static final String HTML_DIR = "templates";
     private static final Configuration CFG = new Configuration(Configuration.VERSION_2_3_23);
 
     public static String getPage(String filename, Map<String, Object> data) {

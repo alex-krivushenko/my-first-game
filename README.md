@@ -1,14 +1,20 @@
 # my-first-game
-Technology stack
-  Backend
-    Languages
-      Java as a major language
-    Third-party libraries
-      Jetty as a webserver
-      Hebirnate as ORM
-  Frontend
+Technologies used in this project:
+  Backend:
+    Java
+    Libs:
+      Jetty
+      Hebirnate
+  Frontend:
     HTML5
     CSS
     Javascript
-    Frameworks
-      Mocha as a testing framework
+    AJAX
+    Libs:
+      jQuery
+      underscore.js
+      Backbone.js
+      Testing:
+        Mocha.js
+        Chai.js
+

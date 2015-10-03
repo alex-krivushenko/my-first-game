@@ -1,8 +1,7 @@
-package frontend;
+package servlets;
 
 
 import interfaces.AccountService;
-import main.AccountServiceDevImpl;
 import main.UserProfile;
 import templater.PageGenerator;
 
@@ -18,9 +17,9 @@ import java.util.Map;
  * Created by Alex on 01.08.2015.
  */
 public class SignInServlet extends HttpServlet {
-    private AccountServiceDevImpl accountService;
+    private AccountService accountService;
 
-    public SignInServlet(AccountServiceDevImpl accountService) {
+    public SignInServlet(AccountService accountService) {
         this.accountService = accountService;
     }
 
@@ -28,9 +27,12 @@ public class SignInServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> pageVariables = new HashMap<>();
         UserProfile userProfile = null;
-        for (Cookie c : request.getCookies()) {
-            if (c.getName().equals("JSESSIONID"))
-                userProfile = accountService.getSession(c.getValue());
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("JSESSIONID"))
+                    userProfile = accountService.getSession(c.getValue());
+            }
         }
         if(userProfile != null)
             pageVariables.put("login_status", "User authorised as " + userProfile.getUserName());

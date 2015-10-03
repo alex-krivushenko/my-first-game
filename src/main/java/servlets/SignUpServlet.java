@@ -1,4 +1,4 @@
-package frontend;
+package servlets;
 
 import interfaces.AccountService;
 import main.AccountServiceDevImpl;
@@ -15,9 +15,9 @@ import java.util.Map;
  * Created by Alex on 01.08.2015.
  */
 public class SignUpServlet extends HttpServlet {
-    private AccountServiceDevImpl accountService;
+    private AccountService accountService;
 
-    public SignUpServlet(AccountServiceDevImpl accountService) {
+    public SignUpServlet(AccountService accountService) {
         this.accountService = accountService;
     }
 
